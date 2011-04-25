@@ -10,7 +10,6 @@ TOOLS := \
 	lsmod \
 	ifconfig \
 	setconsole \
-	mkdir \
 	rmdir \
 	reboot \
 	getevent \
@@ -48,6 +47,7 @@ TOOLS := \
 
 ifndef TINY_TOOLBOX
     TOOLS += \
+        mkdir \
         ln \
         ls \
         mount \
@@ -97,3 +97,19 @@ ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
 # local module name
 ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
     $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
+
+# Create separate executables for tools that depend on
+# additional shared libraries
+include $(CLEAR_VARS)
+
+ifneq ($(BOARD_SUPPORTS_GRALLOC_FB_READ),)
+	LOCAL_CFLAGS += -DGRALLOC_FB_READ_SUPPORTED
+	LOCAL_CFLAGS += -include $(BOARD_SUPPORTS_GRALLOC_FB_READ)
+endif
+
+LOCAL_SRC_FILES := fbread.c
+LOCAL_SHARED_LIBRARIES := libcutils libc libhardware
+LOCAL_MODULE := fbread
+LOCAL_MODULE_TAGS := eng
+
+include $(BUILD_EXECUTABLE)
