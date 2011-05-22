@@ -68,6 +68,10 @@ LOCAL_SHARED_LIBRARIES := libcutils libc
 
 LOCAL_MODULE:= toolbox
 
+ifneq ($(TARGET_RECOVERY_PRE_COMMAND),)
+	LOCAL_CFLAGS += -DRECOVERY_PRE_COMMAND='$(TARGET_RECOVERY_PRE_COMMAND)'
+endif
+
 # Including this will define $(intermediates).
 #
 include $(BUILD_EXECUTABLE)
