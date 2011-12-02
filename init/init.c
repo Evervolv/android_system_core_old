@@ -726,7 +726,7 @@ int main(int argc, char **argv)
     struct pollfd ufds[4];
     char *tmpdev;
     char* debuggable;
-    char tmp[32];
+    char tmp[40]; /* "/init.%s.rc", hardware should fit */
     int property_set_fd_init = 0;
     int signal_fd_init = 0;
     int keychord_fd_init = 0;
