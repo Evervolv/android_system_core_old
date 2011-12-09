@@ -51,7 +51,7 @@ int ueventd_main(int argc, char **argv)
 {
     struct pollfd ufd;
     int nr;
-    char tmp[32];
+    char tmp[45];
 
         /* Prevent fire-and-forget children from becoming zombies.
          * If we should need to wait() for some children in the future
