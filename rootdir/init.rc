@@ -20,6 +20,7 @@ loglevel 3
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /mnt/sdcard
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar
@@ -41,6 +42,9 @@ loglevel 3
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
+
+    mkdir /mnt/sdcard 0000 system system
+    symlink /mnt/sdcard /sdcard
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
@@ -188,6 +192,9 @@ on post-fs-data
     chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun/file
     chown system system /sys/class/android_usb/android0/f_rndis/ethaddr
     chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
+
+# Include extra init file
+    import /system/etc/init.local.rc
 
 on boot
 # basic network init
@@ -453,10 +460,6 @@ service bluetoothd /system/bin/bluetoothd -n
 service installd /system/bin/installd
     class main
     socket installd stream 600 system system
-
-service flash_recovery /system/etc/install-recovery.sh
-    class main
-    oneshot
 
 service racoon /system/bin/racoon
     class main

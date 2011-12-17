@@ -105,6 +105,13 @@ int android_reboot(int cmd, int flags, char *arg)
 {
     int ret;
 
+#ifdef RECOVERY_PRE_COMMAND
+    if (cmd == ANDROID_RB_RESTART2) {
+        if (!strncmp((char *)arg,"recovery",8))
+            system( RECOVERY_PRE_COMMAND );
+    }
+#endif
+
     if (!(flags & ANDROID_RB_FLAG_NO_SYNC))
         sync();
 
