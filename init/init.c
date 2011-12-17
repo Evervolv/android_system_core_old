@@ -840,6 +840,25 @@ int audit_callback(void *data, security_class_t cls, char *buf, size_t len)
 
 #endif
 
+static int charging_mode_booting(void)
+{
+#ifndef BOARD_CHARGING_MODE_BOOTING_LPM
+	return 0;
+#else
+	int f;
+	char cmb;
+	f = open(BOARD_CHARGING_MODE_BOOTING_LPM, O_RDONLY);
+	if (f < 0)
+		return 0;
+
+	if (1 != read(f, (void *)&cmb,1))
+		return 0;
+
+	close(f);
+	return ('1' == cmb);
+#endif
+}
+
 int main(int argc, char **argv)
 {
     int fd_count = 0;
@@ -927,7 +946,11 @@ int main(int argc, char **argv)
         property_load_boot_defaults();
 
     INFO("reading config file\n");
-    init_parse_config_file("/init.rc");
+
+    if (!charging_mode_booting())
+       init_parse_config_file("/init.rc");
+    else
+       init_parse_config_file("/lpm.rc");
 
     /* Check for a target specific initialisation file and read if present */
     if (access("/init.target.rc", R_OK) == 0) {
