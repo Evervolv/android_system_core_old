@@ -382,6 +382,9 @@ on boot
     write /sys/kernel/mm/ksm/sleep_millisecs 1500
     write /sys/kernel/mm/ksm/pages_to_scan 256
 
+# Run sysinit
+    exec /system/bin/sysinit
+
     class_start core
     class_start main
 
