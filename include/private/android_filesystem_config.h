@@ -210,6 +210,7 @@ static const struct fs_path_config android_dirs[] = {
     { 00755, AID_ROOT,   AID_ROOT,   0, "system/etc/ppp" },
     { 00755, AID_ROOT,   AID_SHELL,  0, "vendor" },
     { 00777, AID_ROOT,   AID_ROOT,   0, "sdcard" },
+    { 00771, AID_SYSTEM, AID_SYSTEM, 0, "sd-ext" },
     { 00755, AID_ROOT,   AID_ROOT,   0, 0 },
 };
 
