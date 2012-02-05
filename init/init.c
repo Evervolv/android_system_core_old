@@ -61,6 +61,7 @@ static int   bootchart_count;
 static char console[32];
 static char serialno[32];
 static char bootmode[32];
+static char battchg_pause[32];
 static char baseband[32];
 static char carrier[32];
 static char bootloader[32];
@@ -458,6 +459,8 @@ static void import_kernel_nv(char *name, int in_qemu)
             strlcpy(console, value, sizeof(console));
         } else if (!strcmp(name,"androidboot.mode")) {
             strlcpy(bootmode, value, sizeof(bootmode));
+        } else if (!strcmp(name,"androidboot.battchg_pause")) {
+            strlcpy(battchg_pause, value, sizeof(battchg_pause));
         } else if (!strcmp(name,"androidboot.serialno")) {
             strlcpy(serialno, value, sizeof(serialno));
         } else if (!strcmp(name,"androidboot.baseband")) {
@@ -544,7 +547,7 @@ static int property_init_action(int nargs, char **args)
     bool load_defaults = true;
 
     INFO("property init\n");
-    if (!strcmp(bootmode, "charger"))
+    if (!strcmp(bootmode, "charger") || !strcmp(battchg_pause, "true"))
         load_defaults = false;
     property_init(load_defaults);
     return 0;
@@ -746,7 +749,7 @@ int main(int argc, char **argv)
     action_for_each_trigger("init", action_add_queue_tail);
 
     /* skip mounting filesystems in charger mode */
-    if (strcmp(bootmode, "charger") != 0) {
+    if (strcmp(bootmode, "charger") != 0 || strcmp(battchg_pause, "true") != 0) {
         action_for_each_trigger("early-fs", action_add_queue_tail);
         action_for_each_trigger("fs", action_add_queue_tail);
         action_for_each_trigger("post-fs", action_add_queue_tail);
@@ -757,7 +760,7 @@ int main(int argc, char **argv)
     queue_builtin_action(signal_init_action, "signal_init");
     queue_builtin_action(check_startup_action, "check_startup");
 
-    if (!strcmp(bootmode, "charger")) {
+    if (!strcmp(bootmode, "charger") || !strcmp(battchg_pause, "true")) {
         action_for_each_trigger("charger", action_add_queue_tail);
     } else {
         action_for_each_trigger("early-boot", action_add_queue_tail);
