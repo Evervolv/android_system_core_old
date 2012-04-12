@@ -284,6 +284,20 @@ static void remove_platform_device(const char *name)
     }
 }
 
+static const char *strip_platform_device_prefix(const char *path)
+{
+    const char *name = NULL;
+
+    if (!strncmp(path, "/devices/", 9)) {
+        name = path + 9;
+        if (!strncmp(name, "platform/", 9)) {
+            name += 9;
+        }
+    }
+
+    return name;
+}
+
 #if LOG_UEVENTS
 
 static inline suseconds_t get_usecs(void)
@@ -426,9 +440,12 @@ static char **parse_platform_block_device(struct uevent *uevent)
         return NULL;
     memset(links, 0, sizeof(char *) * 4);
 
-    /* Drop "/devices/platform/" */
+    /* Drop path prefix before device name */
     path = uevent->path;
-    device = path + 18;
+    device = strip_platform_device_prefix(path);
+    if (!device)
+        goto err;
+
     device = find_platform_device(device);
     if (!device)
         goto err;
@@ -497,7 +514,9 @@ static void handle_device(const char *action, const char *devpath,
 
 static void handle_platform_device_event(struct uevent *uevent)
 {
-    const char *name = uevent->path + 18; /* length of /devices/platform/ */
+    const char *name = strip_platform_device_prefix(uevent->path);
+    if (!name)
+        return;
 
     if (!strcmp(uevent->action, "add"))
         add_platform_device(name);
@@ -540,7 +559,7 @@ static void handle_block_device_event(struct uevent *uevent)
     snprintf(devpath, sizeof(devpath), "%s%s", base, name);
     make_dir(base, 0755);
 
-    if (!strncmp(uevent->path, "/devices/platform/", 18))
+    if (!strncmp(uevent->path, "/devices/", 9))
         links = parse_platform_block_device(uevent);
 
     handle_device(uevent->action, devpath, uevent->path, 1,
