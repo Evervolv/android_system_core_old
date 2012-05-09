@@ -126,7 +126,11 @@ $(TOOLS_H):
 
 # Make #!/system/bin/toolbox launchers for each tool.
 #
-SYMLINKS := $(addprefix $(TARGET_OUT)/bin/,$(ALL_TOOLS))
+
+# use busybox versions
+exclude_links := chmod chown df ln ls lsof mkdir mount mv rm touch umount
+
+SYMLINKS := $(addprefix $(TARGET_OUT)/bin/,$(filter-out $(exclude_links),$(ALL_TOOLS)))
 $(SYMLINKS): TOOLBOX_BINARY := $(LOCAL_MODULE)
 $(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
 	@echo "Symlink: $@ -> $(TOOLBOX_BINARY)"
