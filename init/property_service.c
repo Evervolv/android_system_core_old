@@ -99,8 +99,6 @@ struct {
     { "persist.security.", AID_SYSTEM,   0 },
     { "persist.service.bdroid.", AID_BLUETOOTH,   0 },
     { "selinux."         , AID_SYSTEM,   0 },
-    { "persist.service.", AID_RADIO,    0 },
-    { "persist.security.",AID_SYSTEM,   0 },
     { "net.pdp",          AID_RADIO,    AID_RADIO },
     { "persist.wimax.",   AID_SYSTEM,   1000 },
     { "wimax.",           AID_SYSTEM,   1000 },
