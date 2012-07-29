@@ -96,6 +96,16 @@ typedef enum {
                                                 at the audio HAL. */
 } audio_source_t;
 
+#ifdef QCOM_HARDWARE
+typedef enum {
+    QCOM_AUDIO_SOURCE_DEFAULT                       = 0x100,
+    QCOM_AUDIO_SOURCE_DIGITAL_BROADCAST_MAIN_AD     = 0x101,
+    QCOM_AUDIO_SOURCE_DIGITAL_BROADCAST_MAIN_ONLY   = 0x104,
+    QCOM_AUDIO_SOURCE_ANALOG_BROADCAST              = 0x102,
+    QCOM_AUDIO_SOURCE_HDMI_IN                       = 0x103,
+} qcom_audio_source_t;
+#endif
+
 /* special audio session values
  * (XXX: should this be living in the audio effects land?)
  */
