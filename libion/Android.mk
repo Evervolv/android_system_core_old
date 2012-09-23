@@ -1,3 +1,5 @@
+ifneq ($(TARGET_BOARD_PLATFORM),omap3)
+
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -20,3 +22,5 @@ LOCAL_CFLAGS := -Werror
 include $(BUILD_EXECUTABLE)
 
 include $(call first-makefiles-under,$(LOCAL_PATH))
+
+endif
