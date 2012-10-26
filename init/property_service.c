@@ -101,6 +101,9 @@ struct {
     { "net.pdp",          AID_RADIO,    AID_RADIO },
     { "persist.wimax.",   AID_SYSTEM,   1000 },
     { "wimax.",           AID_SYSTEM,   1000 },
+#ifdef PROPERTY_PERMS_APPEND
+PROPERTY_PERMS_APPEND
+#endif
     { NULL, 0, 0 }
 };
 /* Avoid extending this array. Check device_perms.h */
@@ -118,6 +121,9 @@ struct {
 } control_perms[] = {
     { "dumpstate",AID_SHELL, AID_LOG },
     { "ril-daemon",AID_RADIO, AID_RADIO },
+#ifdef CONTROL_PERMS_APPEND
+CONTROL_PERMS_APPEND
+#endif
      {NULL, 0, 0 }
 };
 /* Avoid extending this array. Check device_perms.h */
