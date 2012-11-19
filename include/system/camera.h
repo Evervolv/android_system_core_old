@@ -185,7 +185,7 @@ enum {
      * can silently finish itself or show a dialog.
      */
     CAMERA_CMD_PING = 9,
-
+ 
     /**
      * Configure the number of video buffers used for recording. The intended
      * video buffer count for recording is passed as arg1, which must be
@@ -198,9 +198,9 @@ enum {
     CAMERA_CMD_SET_VIDEO_BUFFER_COUNT = 10,
 
 #ifdef QCOM_HARDWARE
-    CAMERA_CMD_HISTOGRAM_ON     = 11,
-    CAMERA_CMD_HISTOGRAM_OFF     = 12,
-    CAMERA_CMD_HISTOGRAM_SEND_DATA  = 13,
+    CAMERA_CMD_HISTOGRAM_ON     = 10,
+    CAMERA_CMD_HISTOGRAM_OFF     = 11,
+    CAMERA_CMD_HISTOGRAM_SEND_DATA  = 12,
 #endif
 #endif
 
