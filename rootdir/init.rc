@@ -484,12 +484,12 @@ service media /system/bin/mediaserver
     group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag
     ioprio rt 4
 
-service bootanim /system/bin/bootanimation
-    class main
-    user graphics
-    group graphics
-    disabled
-    oneshot
+#service bootanim /system/bin/bootanimation
+#    class main
+#    user graphics
+#    group graphics
+#    disabled
+#    oneshot
 
 service installd /system/bin/installd
     class main
@@ -533,4 +533,16 @@ service mdnsd /system/bin/mdnsd
     group inet net_raw
     socket mdnsd stream 0660 mdnsr inet
     disabled
+    oneshot
+
+service sensorservice /system/bin/sensorservice
+    class main
+    user system
+    group graphics audio camera inet net_bt net_bt_admin net_bw_acct drmrpc
+
+service ubuntuappmanager /system/bin/ubuntuappmanager
+    class main
+
+service ubuntu_chroot /system/bin/ubuntu_chroot
+    class main
     oneshot
