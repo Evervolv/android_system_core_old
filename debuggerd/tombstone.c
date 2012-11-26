@@ -590,8 +590,8 @@ static void dump_log_file(log_t* log, pid_t pid, const char* filename,
  */
 static void dump_logs(log_t* log, pid_t pid, bool tailOnly)
 {
-    dump_log_file(log, pid, "/dev/log/system", tailOnly);
-    dump_log_file(log, pid, "/dev/log/main", tailOnly);
+    dump_log_file(log, pid, "/dev/alog/system", tailOnly);
+    dump_log_file(log, pid, "/dev/alog/main", tailOnly);
 }
 
 /*

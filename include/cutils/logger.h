@@ -43,10 +43,10 @@ struct logger_entry_v2 {
     char        msg[0];    /* the entry's payload */
 };
 
-#define LOGGER_LOG_MAIN		"log/main"
-#define LOGGER_LOG_RADIO	"log/radio"
-#define LOGGER_LOG_EVENTS	"log/events"
-#define LOGGER_LOG_SYSTEM	"log/system"
+#define LOGGER_LOG_MAIN		"alog/main"
+#define LOGGER_LOG_RADIO	"alog/radio"
+#define LOGGER_LOG_EVENTS	"alog/events"
+#define LOGGER_LOG_SYSTEM	"alog/system"
 
 /*
  * The maximum size of the log entry payload that can be

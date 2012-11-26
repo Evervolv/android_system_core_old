@@ -30,7 +30,7 @@ static int g_tail_lines = 0;
 /* logd prefixes records with a length field */
 #define RECORD_LENGTH_FIELD_SIZE_BYTES sizeof(uint32_t)
 
-#define LOG_FILE_DIR    "/dev/log/"
+#define LOG_FILE_DIR    "/dev/alog/"
 
 struct queued_entry_t {
     union {

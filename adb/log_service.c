@@ -26,7 +26,7 @@
 #include "sysdeps.h"
 #include "adb.h"
 
-#define LOG_FILE_DIR    "/dev/log/"
+#define LOG_FILE_DIR    "/dev/alog/"
 
 void write_log_entry(int fd, struct logger_entry *buf);
 

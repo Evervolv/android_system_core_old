@@ -176,7 +176,7 @@ static void deleteFakeFd(int fd)
  */
 static void configureInitialState(const char* pathName, LogState* logState)
 {
-    static const int kDevLogLen = sizeof("/dev/log/") - 1;
+    static const int kDevLogLen = sizeof("/dev/alog/") - 1;
 
     logState->debugName = strdup(pathName);
 
