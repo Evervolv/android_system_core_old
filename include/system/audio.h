@@ -141,10 +141,6 @@ typedef enum {
     AUDIO_FORMAT_HE_AAC_V1           = 0x05000000UL,
     AUDIO_FORMAT_HE_AAC_V2           = 0x06000000UL,
     AUDIO_FORMAT_VORBIS              = 0x07000000UL,
-#ifdef QCOM_HARDWARE
-    AUDIO_FORMAT_QCELP               = 0x08000000UL,
-    AUDIO_FORMAT_EVRC                = 0x09000000UL,
-#endif
     AUDIO_FORMAT_MAIN_MASK           = 0xFF000000UL,
     AUDIO_FORMAT_SUB_MASK            = 0x00FFFFFFUL,
 
@@ -386,15 +382,7 @@ typedef enum {
                                         // controls related to voice calls.
     AUDIO_OUTPUT_FLAG_FAST = 0x4,       // output supports "fast tracks",
                                         // defined elsewhere
-    AUDIO_OUTPUT_FLAG_DEEP_BUFFER = 0x8, // use deep audio buffers
-#ifdef QCOM_HARDWARE
-    //Qualcomm Flags
-    AUDIO_OUTPUT_FLAG_LPA = 0x1000,     // use LPA
-    AUDIO_OUTPUT_FLAG_TUNNEL = 0x2000,  // use Tunnel
-    AUDIO_OUTPUT_FLAG_VOIP_RX = 0x4000  // use this flag in combination with DIRECT to
-                                        // indicate HAL to activate EC & NS
-                                        // path for VOIP calls
-#endif
+    AUDIO_OUTPUT_FLAG_DEEP_BUFFER = 0x8 // use deep audio buffers
 } audio_output_flags_t;
 
 static inline bool audio_is_output_device(audio_devices_t device)
