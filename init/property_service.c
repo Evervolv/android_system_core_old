@@ -102,6 +102,7 @@ struct {
     { "net.pdp",          AID_RADIO,    AID_RADIO },
     { "persist.wimax.",   AID_SYSTEM,   1000 },
     { "wimax.",           AID_SYSTEM,   1000 },
+    { "service.bootanim.exit", AID_GRAPHICS, 0 },
 #ifdef PROPERTY_PERMS_APPEND
 PROPERTY_PERMS_APPEND
 #endif
