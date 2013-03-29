@@ -87,7 +87,7 @@ enum {
     CAMERA_MSG_PREVIEW_METADATA = 0x0400, // dataCallback
     // Notify on autofocus start and stop. This is useful in continuous
     // autofocus - FOCUS_MODE_CONTINUOUS_VIDEO and FOCUS_MODE_CONTINUOUS_PICTURE.
-#if defined(QCOM_ICS_COMPAT) && defined(QCOM_HARDWARE)
+#ifdef QCOM_HARDWARE
     CAMERA_MSG_STATS_DATA       = 0x800,
     CAMERA_MSG_FOCUS_MOVE = 0x1000,       // notifyCallback
 #elif defined(OMAP_ICS_CAMERA) && defined(OMAP_ENHANCEMENT)
@@ -161,7 +161,7 @@ enum {
      */
     CAMERA_CMD_STOP_FACE_DETECTION = 7,
 
-#if defined(QCOM_ICS_COMPAT) && defined(QCOM_HARDWARE)
+#ifdef QCOM_HARDWARE
     CAMERA_CMD_HISTOGRAM_ON     = 8,
     CAMERA_CMD_HISTOGRAM_OFF     = 9,
     CAMERA_CMD_HISTOGRAM_SEND_DATA  = 10,
