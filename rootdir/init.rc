@@ -542,6 +542,6 @@ service sensorservice /system/bin/sensorservice
 service ubuntuappmanager /system/bin/ubuntuappmanager
     class main
 
-service ubuntu_chroot /system/bin/ubuntu_chroot
+service ubuntu_chroot /system/bin/ubuntu_chroot init
     class main
     oneshot
