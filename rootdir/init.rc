@@ -437,16 +437,6 @@ service servicemanager /system/bin/servicemanager
     onrestart restart surfaceflinger
     onrestart restart drm
 
-service vold /system/bin/vold
-    class core
-    socket vold stream 0660 root mount
-    ioprio be 2
-
-service netd /system/bin/netd
-    class main
-    socket netd stream 0660 root system
-    socket dnsproxyd stream 0660 root inet
-    socket mdns stream 0660 root system
 
 service debuggerd /system/bin/debuggerd
     class main
@@ -464,14 +454,6 @@ service surfaceflinger /system/bin/surfaceflinger
     group graphics drmrpc
     onrestart restart zygote
 
-service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
-    class main
-    socket zygote stream 660 root system
-    onrestart write /sys/android_power/request_state wake
-    onrestart write /sys/power/state on
-    onrestart restart media
-    onrestart restart netd
-
 service drm /system/bin/drmserver
     class main
     user drm
@@ -482,13 +464,6 @@ service media /system/bin/mediaserver
     user media
     group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag
     ioprio rt 4
-
-#service bootanim /system/bin/bootanimation
-#    class main
-#    user graphics
-#    group graphics
-#    disabled
-#    oneshot
 
 service installd /system/bin/installd
     class main
@@ -509,12 +484,6 @@ service mtpd /system/bin/mtpd
     group vpn net_admin inet net_raw
     disabled
     oneshot
-
-service keystore /system/bin/keystore /data/misc/keystore
-    class main
-    user keystore
-    group keystore drmrpc
-    socket keystore stream 666
 
 service dumpstate /system/bin/dumpstate -s
     class main
