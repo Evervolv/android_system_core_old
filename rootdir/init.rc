@@ -128,6 +128,9 @@ loglevel 3
 # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
 
+# Create /dev/fd link for Ubuntu
+    symlink /proc/self/fd /dev/fd
+
 on fs
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
