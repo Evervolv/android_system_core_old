@@ -9,6 +9,8 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.usb.configfs.rc
 import /init.${ro.zygote}.rc
+# Include EVERVOLV's extra init file
+import /init.evervolv.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
