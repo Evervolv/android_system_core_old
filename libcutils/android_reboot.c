@@ -133,6 +133,7 @@ int android_reboot(int cmd, int flags, char *arg)
             return ret;
 
         case ANDROID_RB_RESTART2:
+            reason = RB_AUTOBOOT;
             // REBOOT_MAGIC
             break;
 
