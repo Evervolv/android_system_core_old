@@ -349,8 +349,10 @@ int do_insmod(int nargs, char **args)
 
 int do_log(int nargs, char **args)
 {
+    char tmp[PROP_VALUE_MAX];
     char* par[nargs+3];
     char* value;
+    int ret;
     int i;
 
     par[0] = "exec";
@@ -362,8 +364,9 @@ int do_log(int nargs, char **args)
             /* system property if value starts with '$' */
             value++;
             if (value[0] != '$') {
-                value = (char*) property_get(value);
-                if (!value) value = args[i];
+                ret = property_get(value, tmp);
+                if (!ret)
+                    value = args[i];
             }
         }
         par[i+2] = value;
