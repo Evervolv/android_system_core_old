@@ -92,6 +92,19 @@ LOCAL_CFLAGS := -Werror
 ifeq ($(strip $(LOCAL_CHARGER_NO_UI)),true)
 LOCAL_CFLAGS += -DCHARGER_NO_UI
 endif
+
+HEALTHD_CHARGER_DEFINES := RED_LED_PATH \
+    GREEN_LED_PATH \
+    BLUE_LED_PATH \
+    BACKLIGHT_PATH \
+    CHARGING_ENABLED_PATH
+
+$(foreach healthd_charger_define,$(HEALTHD_CHARGER_DEFINES), \
+  $(if $($(healthd_charger_define)), \
+    $(eval LOCAL_CFLAGS += -D$(healthd_charger_define)=\"$($(healthd_charger_define))\") \
+  ) \
+)
+
 ifneq ($(BOARD_PERIODIC_CHORES_INTERVAL_FAST),)
 LOCAL_CFLAGS += -DBOARD_PERIODIC_CHORES_INTERVAL_FAST=$(BOARD_PERIODIC_CHORES_INTERVAL_FAST)
 endif
