@@ -228,7 +228,7 @@ static int set_tricolor_led(int on, int color)
             fd = open(leds[i].path, O_RDWR);
             if (fd < 0) {
                 LOGE("Could not open red led node\n");
-                goto cleanup;
+                continue;
             }
             if (on)
                 snprintf(buffer, sizeof(int), "%d\n", 255);
@@ -237,7 +237,6 @@ static int set_tricolor_led(int on, int color)
 
             if (write(fd, buffer, strlen(buffer)) < 0)
                 LOGE("Could not write to led node\n");
-cleanup:
             if (fd >= 0)
                 close(fd);
         }
@@ -415,7 +414,6 @@ err:
 static int get_battery_capacity()
 {
     return charger_state.capacity;
->>>>>>> 159fef7... charger: check the charging_enabled at the beginning of power off charging
 }
 
 #ifdef CHARGER_ENABLE_SUSPEND
@@ -908,7 +906,7 @@ void healthd_mode_charger_init(struct healthd_config* config)
     ret = read_file_int(CHARGING_ENABLED_PATH, &charging_enabled);
     if (!ret && !charging_enabled) {
         /* if charging is disabled, reboot and exit power off charging */
-        LOGI("android charging is disabled, exit!\n");
+        LOGW("android charging is disabled, exit!\n");
         android_reboot(ANDROID_RB_RESTART, 0, 0);
     }
 
