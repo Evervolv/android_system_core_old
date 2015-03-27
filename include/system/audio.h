@@ -70,11 +70,13 @@ typedef enum {
     AUDIO_STREAM_ACCESSIBILITY    = 10, /* For accessibility talk back prompts */
     AUDIO_STREAM_REROUTING        = 11, /* For dynamic policy output mixes */
     AUDIO_STREAM_PATCH            = 12, /* For internal audio flinger tracks. Fixed volume */
+    AUDIO_STREAM_PUBLIC_CNT       = AUDIO_STREAM_TTS + 1,
 #ifdef QCOM_HARDWARE
     AUDIO_STREAM_INCALL_MUSIC     = 13,
-#endif
-    AUDIO_STREAM_PUBLIC_CNT       = AUDIO_STREAM_TTS + 1,
+    AUDIO_STREAM_CNT              = AUDIO_STREAM_INCALL_MUSIC + 1,
+#else
     AUDIO_STREAM_CNT              = AUDIO_STREAM_PATCH + 1,
+#endif
 } audio_stream_type_t;
 
 /* Do not change these values without updating their counterparts
