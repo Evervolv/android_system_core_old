@@ -407,11 +407,6 @@ err:
     return -1;
 }
 
-static int get_battery_capacity()
-{
-    return charger_state.capacity;
-}
-
 #ifdef CHARGER_ENABLE_SUSPEND
 static int request_suspend(bool enable)
 {
@@ -762,12 +757,15 @@ static void handle_input_state(struct charger *charger, int64_t now)
 static void handle_power_supply_state(struct charger *charger, int64_t now)
 {
     static int old_soc = 0;
-    int soc;
+    int soc = 0;
 
     if (!charger->have_battery_state)
         return;
 
-    soc = get_battery_capacity();
+    if (batt_prop && batt_prop->batteryLevel >= 0) {
+        soc = batt_prop->batteryLevel;
+    }
+
     if (old_soc != soc) {
         old_soc = soc;
         set_battery_soc_leds(soc);
