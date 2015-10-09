@@ -19,6 +19,7 @@
 
 #include <stddef.h>
 #include <sys/system_properties.h>
+#include <stdbool.h>
 
 extern void property_init(void);
 extern void property_load_boot_defaults(void);
