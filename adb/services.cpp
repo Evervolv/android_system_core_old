@@ -85,8 +85,7 @@ void restart_root_service(int fd, void *cookie) {
         property_get("ro.build.type", build_type, "");
 
         if (strcmp(build_type, "eng") != 0 && (atoi(value) & 2) != 2) {
-            snprintf(buf, sizeof(buf), "root access is disabled by system setting\n");
-            writex(fd, buf, strlen(buf));
+            WriteFdExactly(fd, "root access is disabled by system setting\n");
             adb_close(fd);
             return;
         }
