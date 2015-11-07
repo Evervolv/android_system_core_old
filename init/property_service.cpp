@@ -561,7 +561,7 @@ void load_recovery_id_prop() {
     close(fd);
 }
 
-void load_all_props() {
+void load_system_props() {
     load_properties_from_file(PROP_PATH_SYSTEM_BUILD, NULL);
     load_properties_from_file(PROP_PATH_VENDOR_BUILD, NULL);
     load_properties_from_file(PROP_PATH_FACTORY, "ro.*");
