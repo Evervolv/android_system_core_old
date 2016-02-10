@@ -84,7 +84,6 @@ LOCAL_STATIC_LIBRARIES := \
     liblogwrap \
     libcutils \
     libbase \
-    libext4_utils_static \
     libutils \
     liblog \
     libc \
