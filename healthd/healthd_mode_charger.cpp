@@ -199,6 +199,7 @@ enum {
     BLUE_LED = 0x01 << 2,
 };
 
+#ifdef NO_CHARGER_LED
 struct led_ctl {
     int color;
     const char *path;
@@ -219,6 +220,7 @@ struct soc_led_color_mapping soc_leds[3] = {
     {90, RED_LED | GREEN_LED},
     {100, GREEN_LED},
 };
+#endif
 
 static struct charger charger_state;
 static struct healthd_config *healthd_config;
@@ -227,6 +229,7 @@ static int char_width;
 static int char_height;
 static bool minui_inited;
 
+#ifdef NO_CHARGER_LED
 static int set_tricolor_led(int on, int color)
 {
     int fd, i;
@@ -273,6 +276,7 @@ static int set_battery_soc_leds(int soc)
 
     return 0;
 }
+#endif
 
 /* current time in milliseconds */
 static int64_t curr_time_ms(void)
@@ -758,12 +762,15 @@ static void handle_input_state(struct charger *charger, int64_t now)
 
 static void handle_power_supply_state(struct charger *charger, int64_t now)
 {
+#ifndef NO_CHARGER_LED
     static int old_soc = 0;
     int soc = 0;
+#endif
 
     if (!charger->have_battery_state)
         return;
 
+#ifndef NO_CHARGER_LED
     if (batt_prop && batt_prop->batteryLevel >= 0) {
         soc = batt_prop->batteryLevel;
     }
@@ -772,6 +779,7 @@ static void handle_power_supply_state(struct charger *charger, int64_t now)
         old_soc = soc;
         set_battery_soc_leds(soc);
     }
+#endif
 
     if (!charger->charger_connected) {
 

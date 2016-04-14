@@ -126,8 +126,11 @@ ifneq ($(strip $(LOCAL_CHARGER_NO_UI)),true)
 LOCAL_STATIC_LIBRARIES += \
     libminui \
     libpng \
-    libz \
+    libz
+endif
 
+ifeq ($(strip $(BOARD_NO_CHARGER_LED)),true)
+LOCAL_CFLAGS += -DNO_CHARGER_LED
 endif
 
 ifeq ($(strip $(BOARD_CHARGER_ENABLE_SUSPEND)),true)
