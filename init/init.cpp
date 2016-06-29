@@ -535,6 +535,26 @@ static int charging_mode_booting(void) {
 #endif
 }
 
+// Set the UDC controller for the ConfigFS USB Gadgets.
+// Read the UDC controller in use from "/sys/class/udc".
+// In case of multiple UDC controllers select the first one.
+static void set_usb_controller() {
+    static const char sys_udc[] = "/sys/class/udc";
+
+    std::unique_ptr<DIR, int(*)(DIR*)>dir(opendir(sys_udc), closedir);
+    if (!dir) return;
+
+    dirent *dp;
+    while ((dp = readdir(dir.get())) != NULL) {
+        if (dp->d_name[0] == '.') {
+            continue;
+        }
+
+        property_set("sys.usb.controller", dp->d_name);
+        break;
+    }
+}
+
 int main(int argc, char** argv) {
     if (!strcmp(basename(argv[0]), "ueventd")) {
         return ueventd_main(argc, argv);
@@ -628,6 +648,7 @@ int main(int argc, char** argv) {
     property_load_boot_defaults();
     export_oem_lock_status();
     start_property_service();
+    set_usb_controller();
 
     const BuiltinFunctionMap function_map;
     Action::set_function_map(&function_map);
