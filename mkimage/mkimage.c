@@ -61,8 +61,6 @@ typedef		unsigned int	uint32_t;
 
 #include "image.h"
 
-extern int errno;
-
 #ifndef MAP_FAILED
 #define MAP_FAILED (-1)
 #endif
