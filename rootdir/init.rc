@@ -183,6 +183,12 @@ on init
     write /dev/cpuset/top-app/cpus 0
     write /dev/cpuset/top-app/mems 0
 
+    copy /sys/devices/system/cpu/possible /dev/cpuset/foreground/cpus
+    copy /sys/devices/system/cpu/possible /dev/cpuset/top-app/cpus
+    copy /sys/devices/system/cpu/possible /dev/cpuset/background/cpus
+    copy /sys/devices/system/cpu/possible /dev/cpuset/system-background/cpus
+    write /dev/cpuset/foreground/boost/cpus 0
+
     # change permissions for all cpusets we'll touch at runtime
     chown system system /dev/cpuset
     chown system system /dev/cpuset/foreground
