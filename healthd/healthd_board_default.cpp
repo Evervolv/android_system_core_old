@@ -47,3 +47,4 @@ void healthd_board_mode_charger_init()
 {
 
 }
+
